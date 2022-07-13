@@ -6,7 +6,7 @@ export interface IProfile {
     dateOfBirth: Date;
     address: string;
     email: string;
-    gender: string;
+    gender: "male" | "female";
 }
 const profileSchema = new mongoose.Schema<IProfile>({
 
@@ -27,6 +27,7 @@ const profileSchema = new mongoose.Schema<IProfile>({
     },
     gender: {
         type: String,
+        enum: ['user', 'admin'],
     }
 
 }, { _id: false });
