@@ -27,7 +27,7 @@ const profileSchema = new mongoose.Schema<IProfile>({
     },
     gender: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['male', 'female'],
     }
 
 }, { _id: false });
