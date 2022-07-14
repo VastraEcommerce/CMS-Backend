@@ -6,6 +6,9 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import medicineRouter from './routes/medicine.route';
+import notFound from './middlewares/notFound.middleware';
+import errorHandler from './middlewares/error.middleware';
 dotenv.config();
 
 const PORT = process.env.PORT
@@ -42,6 +45,9 @@ app.use(mongoSanitize());
 
 // Allow cross origins
 app.use(cors());
+app.use(medicineRouter);
+app.use(notFound);
+app.use(errorHandler);
 
 
 // Connecting to the Database
