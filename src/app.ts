@@ -9,10 +9,12 @@ import mongoose from 'mongoose';
 import medicineRouter from './routes/medicine.route';
 import notFound from './middlewares/notFound.middleware';
 import errorHandler from './middlewares/error.middleware';
+
+import doctorRouter from './routes/doctor.route';
 dotenv.config();
 
-const PORT = process.env.PORT
-const DB_URI = process.env.DB_URI
+const PORT = process.env.PORT;
+const DB_URI = process.env.DB_URI;
 
 const app = express();
 
@@ -45,6 +47,7 @@ app.use(mongoSanitize());
 
 // Allow cross origins
 app.use(cors());
+app.use(doctorRouter);
 app.use(medicineRouter);
 app.use(notFound);
 app.use(errorHandler);
@@ -58,7 +61,7 @@ mongoose
     )
     .catch((error: Error) => {
         console.log('Database Connection failed');
-        console.error(error.message)
+        console.error(error.message);
     });
 
 
