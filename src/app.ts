@@ -11,6 +11,7 @@ import notFound from './middlewares/notFound.middleware';
 import errorHandler from './middlewares/error.middleware';
 
 import doctorRouter from './routes/doctor.route';
+import employeeRouter from './routes/employee.route';
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -48,6 +49,7 @@ app.use(mongoSanitize());
 // Allow cross origins
 app.use(cors());
 app.use(doctorRouter);
+app.use(employeeRouter);
 app.use(medicineRouter);
 app.use(notFound);
 app.use(errorHandler);
