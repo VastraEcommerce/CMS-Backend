@@ -48,3 +48,5 @@ const Appointment = model<IAppointment, AppointmentModel>(
   'Appointment',
   schema
 );
+
+export default Appointment;
