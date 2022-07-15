@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "watch": "tsc -w",
-    "start": "nodemon dist/server.js"
+    "start": "nodemon dist/server.js",
+    "start:prod": "cross-env NODE_ENV=production nodemon dist/server.js",
+    "prettier": "npx prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   "homepage": "https://github.com/VastraEcommerce/CMS-Backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-async-handler": "^1.2.0",
