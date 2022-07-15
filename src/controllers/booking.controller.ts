@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import Stripe from "stripe";
 import Appointment from "../models/appointments.model";
 import AppError from "../utils/AppError";
@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2020-08-27",
 });
 
-export const getCheckoutSession = expressAsyncHandler(
+export const getCheckoutSession = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     // todo 1) Get the currently booked appointment
     const appointment = await Appointment.findById(req.params.id);
