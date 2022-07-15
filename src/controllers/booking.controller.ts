@@ -1,30 +1,30 @@
-import { NextFunction, Request, Response } from 'express';
-import expressAsyncHandler from 'express-async-handler';
-import Stripe from 'stripe';
-import Appointment from '../models/appointments.model';
-import AppError from '../utils/AppError';
+import { NextFunction, Request, Response } from "express";
+import expressAsyncHandler from "express-async-handler";
+import Stripe from "stripe";
+import Appointment from "../models/appointments.model";
+import AppError from "../utils/AppError";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2020-08-27',
+  apiVersion: "2020-08-27",
 });
 
-const getCheckoutSession = expressAsyncHandler(
+export const getCheckoutSession = expressAsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     // todo 1) Get the currently booked appointment
     const appointment = await Appointment.findById(req.params.id);
 
     if (!appointment) {
-      next(new AppError('There is no appointment with this Id', 404));
+      next(new AppError("There is no appointment with this Id", 404));
     }
 
     // todo 2) Create checkout session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
+      payment_method_types: ["card"],
+      mode: "payment",
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: "usd",
             product_data: {
               name: `${appointment?.name} Appoinment`,
               description: appointment?.invoice?.description,
@@ -35,13 +35,13 @@ const getCheckoutSession = expressAsyncHandler(
           quantity: 1,
         },
       ],
-      success_url: `${req.protocol}://${req.get('host')}/success.html`,
-      cancel_url: `${req.protocol}://${req.get('host')}/cancel.html`,
+      success_url: `${req.protocol}://${req.get("host")}/success.html`,
+      cancel_url: `${req.protocol}://${req.get("host")}/cancel.html`,
     });
 
     // todo 3) Send session as response
     res.status(200).json({
-      status: 'success',
+      status: "success",
       session,
     });
   }
