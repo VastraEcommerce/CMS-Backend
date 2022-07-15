@@ -7,7 +7,6 @@ import morgan from "morgan";
 import globalErrorHandler from "./controllers/error.controller";
 import indexRouter from "./routes";
 import AppError from "./utils/AppError";
-import bookingRoute from "./routes/booking.route";
 
 const app = express();
 
@@ -30,7 +29,6 @@ const limiter = rateLimit({
   message: "Too many requests from this IP, please try again in an hour!",
 });
 app.use("/api", limiter);
-app.use("/api/v1/booking", bookingRoute);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" }));
