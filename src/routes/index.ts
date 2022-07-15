@@ -11,6 +11,6 @@ indexRouter.use("/doctor", doctorRouter);
 indexRouter.use("/employee", employeeRouter);
 indexRouter.use("/medicine", medicineRouter);
 indexRouter.use("/auth", authRouter);
-indexRouter.use("/api/v1/booking", bookingRoute);
+indexRouter.use("/booking", bookingRoute);
 
 export default indexRouter;
