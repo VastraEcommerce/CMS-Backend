@@ -1,12 +1,13 @@
-import cors from 'cors';
-import express from 'express';
-import mongoSanitize from 'express-mongo-sanitize';
-import rateLimit from 'express-rate-limit';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import globalErrorHandler from './controllers/error.controller';
-import indexRouter from './routes';
-import AppError from './utils/AppError';
+import cors from "cors";
+import express from "express";
+import mongoSanitize from "express-mongo-sanitize";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import morgan from "morgan";
+import globalErrorHandler from "./controllers/error.controller";
+import indexRouter from "./routes";
+import AppError from "./utils/AppError";
+import bookingRoute from "./routes/booking.route";
 
 const app = express();
 
@@ -15,23 +16,24 @@ app.use(helmet()); // Set security HTTP headers
 app.use(helmet.xssFilter()); // XSS-Protection
 
 // Development logging
-if (process.env.NODE_ENV === 'development') {
-  console.log('Start Development');
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") {
+  console.log("Start Development");
+  app.use(morgan("dev"));
 } else {
-  console.log('Strat Production');
+  console.log("Strat Production");
 }
 
 // Limit requests from same API
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!',
+  message: "Too many requests from this IP, please try again in an hour!",
 });
-app.use('/api', limiter);
+app.use("/api", limiter);
+app.use("/api/v1/booking", bookingRoute);
 
 // Body parser, reading data from body into req.body
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: "10kb" }));
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -40,10 +42,10 @@ app.use(mongoSanitize());
 app.use(cors());
 
 // todo 2) ROUTES
-app.use('/', indexRouter);
+app.use("/", indexRouter);
 
 // Global route
-app.all('*', (req, res, next) => {
+app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
 
