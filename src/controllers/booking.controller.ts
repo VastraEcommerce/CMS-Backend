@@ -1,16 +1,21 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
 import Appointment from '../models/appointments.model';
+import AppError from '../utils/AppError';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2020-08-27',
 });
 
 const getCheckoutSession = expressAsyncHandler(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     // todo 1) Get the currently booked appointment
     const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      next(new AppError('There is no appointment with this Id', 404));
+    }
 
     // todo 2) Create checkout session
     const session = await stripe.checkout.sessions.create({
@@ -21,11 +26,11 @@ const getCheckoutSession = expressAsyncHandler(
           price_data: {
             currency: 'usd',
             product_data: {
-              name: `${'name'} Appoinment`,
-              description: `${'description'}`,
-              images: ['urls'],
+              name: `${appointment?.name} Appoinment`,
+              description: appointment?.invoice?.description,
+              // images: ['urls'],
             },
-            unit_amount: 100,
+            unit_amount: appointment?.invoice?.price,
           },
           quantity: 1,
         },

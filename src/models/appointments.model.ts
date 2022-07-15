@@ -1,11 +1,11 @@
-import { Model, Schema, Types, model, HydratedDocument } from 'mongoose';
-import validator from 'validator';
+import { HydratedDocument, Model, model, Schema, Types } from 'mongoose';
 import invoiceSchema, { IInvoice } from '../schemas/invoice.schema';
 import prescriptionRecordSchema, {
   IPrescriptionRecord,
 } from '../schemas/prescriptionRecord.schema';
 
 interface IAppointment {
+  name: string;
   date: Date;
   doctor: Types.ObjectId;
   examinationId?: Types.ObjectId | null;
@@ -26,6 +26,7 @@ interface AppointmentModel
 
 const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
   {
+    name: { type: String, requried: true },
     date: { type: Date, required: true },
     doctor: { type: Schema.Types.ObjectId, ref: 'Doctor', required: true },
     examinationId: { type: Schema.Types.ObjectId, ref: 'Appointment' },
