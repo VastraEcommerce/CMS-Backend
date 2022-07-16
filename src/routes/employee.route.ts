@@ -6,14 +6,15 @@ import {
   updateEmployee,
   deleteEmployee,
 } from '../controllers/employee.controller';
+import { admin } from '../middlewares/auth/protect.middleware';
 
 const employeeRouter = express.Router();
 
-employeeRouter.route('/').get(getAllEmployees).post(createEmployee);
+employeeRouter.route('/').get(getAllEmployees).post(admin, createEmployee);
 employeeRouter
   .route('/:id')
   .get(getEmployee)
-  .put(updateEmployee)
-  .delete(deleteEmployee);
+  .put(admin, updateEmployee)
+  .delete(admin, deleteEmployee);
 
 export default employeeRouter;

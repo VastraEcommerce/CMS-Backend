@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import Stripe from "stripe";
-import Appointment from "../models/appointments.model";
+import Appointment from "../models/appointment.model";
 import AppError from "../utils/AppError";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
