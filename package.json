@@ -19,11 +19,7 @@
   },
   "homepage": "https://github.com/VastraEcommerce/CMS-Backend#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "bcryptjs": "^2.4.3",
-=======
     "argon2": "^0.28.7",
->>>>>>> 84c083afcfbb09c8036659d3003ed59d59ef3091
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
