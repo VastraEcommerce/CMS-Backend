@@ -4,7 +4,8 @@ import {
   createAppointment,
   getAppointment,
   updateAppointment,
-  deleteAppointment
+  deleteAppointment,
+  getAppointmentsByDate
 } from '../controllers/appointment.controller';
 
 const appointmentRouter = express.Router();
@@ -15,5 +16,7 @@ appointmentRouter
   .get(getAppointment)
   .put(updateAppointment)
   .delete(deleteAppointment);
+
+appointmentRouter.get("/date/:date", getAppointmentsByDate)
 
 export default appointmentRouter;

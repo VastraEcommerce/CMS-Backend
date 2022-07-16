@@ -52,3 +52,13 @@ export const deleteAppointment = asyncHandler(async (req: Request, res: Response
             "Deleted"
     })
 })
+export const getAppointmentsByDate = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    const date = req.params.date
+    const aps = await Appointment.getAppointmentsByDate(new Date(date))
+    res.status(201).json({
+        message: "Success",
+        data:
+            aps
+    })
+})

@@ -6,6 +6,7 @@ import employeeRouter from './employee.route';
 import medicineRouter from './medicine.route';
 import appointmentRouter from './appointment.route';
 import bookingRoute from "./../routes/booking.route";
+import patientRoute from "./../routes/patient.route";
 
 
 const indexRouter = Router();
@@ -17,5 +18,6 @@ indexRouter.use('/employee', employeeRouter);
 indexRouter.use('/medicine', medicineRouter);
 indexRouter.use('/appointment', appointmentRouter);
 indexRouter.use("/booking", bookingRoute);
+indexRouter.use("/patient", patientRoute);
 
 export default indexRouter;

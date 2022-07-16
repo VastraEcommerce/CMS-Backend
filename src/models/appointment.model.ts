@@ -5,7 +5,7 @@ import prescriptionRecordSchema, {
 } from '../schemas/prescriptionRecord.schema';
 
 interface IAppointment {
-  name: string;
+  patinetId: Types.ObjectId;
   date: Date;
   doctor: Types.ObjectId;
   examinationId?: Types.ObjectId | null;
@@ -14,19 +14,19 @@ interface IAppointment {
 }
 
 interface IAppointmentMethods {
-  fullName(): string;
+  updatePrescription(prescription: IPrescriptionRecord[]): Promise<void>;
 }
 
 interface AppointmentModel
   extends Model<IAppointment, {}, IAppointmentMethods> {
-  createWithFullName(
-    name: string
+  getAppointmentsByDate(
+    date: Date
   ): Promise<HydratedDocument<IAppointment, IAppointmentMethods>>;
 }
 
 const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
   {
-    name: { type: String, requried: true },
+    patinetId: { type: Schema.Types.ObjectId, ref: "Patinet", requried: true },
     date: { type: Date, required: true },
     doctor: { type: Schema.Types.ObjectId, ref: 'Doctor', required: true },
     examinationId: { type: Schema.Types.ObjectId, ref: 'Appointment' },
@@ -37,12 +37,14 @@ const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
     timestamps: true,
   }
 );
-schema.static('createWithFullName', function createWithFullName(name: string) {
-  const [firstName, lastName] = name.split(' ');
-  return Appointment.create({ firstName, lastName });
+schema.static('getAppointmentsByDate', function getAppointmentsByDate(date: Date) {
+
+  return Appointment.find({ date });
 });
-schema.method('fullName', function fullName(): string {
-  return this.firstName + ' ' + this.lastName;
+
+schema.method('updatePrescription', function updatePrescription(prescription: IPrescriptionRecord[]): void {
+  this.prescription = prescription;
+  this.save()
 });
 
 const Appointment = model<IAppointment, AppointmentModel>(
