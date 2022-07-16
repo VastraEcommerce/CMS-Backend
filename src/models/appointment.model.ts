@@ -37,20 +37,21 @@ const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
     timestamps: true,
   }
 );
-schema.static(
-  "getAppointmentsByDate",
-  function getAppointmentsByDate(date: Date) {
-    return Appointment.find({ date });
-  }
-);
+// schema.static(
+//   "getAppointmentsByDate",
+//   function getAppointmentsByDate(date: Date) {
+//     const dd = Appointment.find({ date });
+//     return dd;
+//   }
+// );
 
-schema.method(
-  "updatePrescription",
-  function updatePrescription(prescription: IPrescriptionRecord[]): void {
-    this.prescription = prescription;
-    this.save();
-  }
-);
+// schema.method(
+//   "updatePrescription",
+//   function updatePrescription(prescription: IPrescriptionRecord[]): void {
+//     this.prescription = prescription;
+//     this.save();
+//   }
+// );
 
 const Appointment = model<IAppointment, AppointmentModel>(
   "Appointment",
