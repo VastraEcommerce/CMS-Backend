@@ -52,7 +52,7 @@ export const deleteAppointment = asyncHandler(async (req: Request, res: Response
             "Deleted"
     });
 });
-export const getAppointmentsByDate = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+export const getTodayAppointments = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
     const date = req.params.date;
     const day = date.split("T")[0]; //to sure that format will be like "2020-07-16"

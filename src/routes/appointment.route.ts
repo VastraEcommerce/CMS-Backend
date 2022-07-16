@@ -5,7 +5,7 @@ import {
   getAppointment,
   updateAppointment,
   deleteAppointment,
-  getAppointmentsByDate
+  getTodayAppointments
 } from '../controllers/appointment.controller';
 
 const appointmentRouter = express.Router();
@@ -17,6 +17,6 @@ appointmentRouter
   .put(updateAppointment)
   .delete(deleteAppointment);
 
-appointmentRouter.get("/date/:date", getAppointmentsByDate)
+appointmentRouter.get("/date/:date", getTodayAppointments);
 
 export default appointmentRouter;
