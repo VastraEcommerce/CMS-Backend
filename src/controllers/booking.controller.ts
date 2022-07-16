@@ -26,11 +26,11 @@ export const getCheckoutSession = asyncHandler(
           price_data: {
             currency: "usd",
             product_data: {
-              name: `${appointment?.name} Appoinment`,
+              name: `${appointment?.name} Appointment`,
               description: appointment?.invoice?.description,
               // images: ['urls'],
             },
-            unit_amount: appointment?.invoice?.price,
+            unit_amount: appointment?.invoice?.price! * 100,
           },
           quantity: 1,
         },

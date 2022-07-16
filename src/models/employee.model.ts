@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema, Types } from 'mongoose';
 import validator from 'validator';
 import profileSchema, { IProfile } from '../schemas/porfile.schema';
-import argon2 from "argon2"
+import argon2 from "argon2";
 
 export interface IEmployee {
 
@@ -78,7 +78,7 @@ employeeSchema.pre('save', async function (next) {
 employeeSchema.method("verifyPassword", function verifyPassword(candidatePassword: string, userPassword: string) {
 
     return argon2.verify(userPassword, candidatePassword);
-})
+});
 
 
 
