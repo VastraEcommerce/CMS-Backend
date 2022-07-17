@@ -6,7 +6,7 @@ import { ObjectId, Types } from 'mongoose';
 export const getAllDoctors = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const doctors = await Doctor.find({});
-    console.log(doctors[0].appointmentsCount)
+    console.log(doctors[0].appointmentsCount);
     res.status(200).json({
       message: 'Success',
       data: {
