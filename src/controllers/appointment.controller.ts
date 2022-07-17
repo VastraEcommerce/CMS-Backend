@@ -55,14 +55,24 @@ export const deleteAppointment = asyncHandler(async (req: Request, res: Response
 export const getTodayAppointments = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
     const date = req.params.date;
-    const day = date.split("T")[0]; //to sure that format will be like "2020-07-16"
+    let aps: any[];
+    if (date) {
 
-    const aps = await Appointment.find({
-        date: {
-            $gte: `${day}T00:00:00.000Z`,
-            $lt: `${day}T23:59:59.999Z`,
-        }
-    });
+
+        const day = date.split("T")[0]; //to sure that format will be like "2020-07-16"
+        aps = await Appointment.find({
+            date: {
+                $gte: `${day}T00:00:00.000Z`,
+                $lt: `${day}T23:59:59.999Z`,
+            }
+        });
+
+    } else {
+        const today = new Date();
+        console.log(today);
+        aps = await Appointment.find({ date: `{today}` });
+
+    }
     res.status(201).json({
         message: "Success",
         data:

@@ -40,8 +40,8 @@ const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
 // schema.static(
 //   "getAppointmentsByDate",
 //   function getAppointmentsByDate(date: Date) {
-//     const dd = Appointment.find({ date });
-//     return dd;
+
+//     return Appointment.find({ date });
 //   }
 // );
 
