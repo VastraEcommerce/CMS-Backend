@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import Appointment from "../models/appointment.model";
+import { StatusCodes } from "http-status-codes";
+import Appointment, { IAppointment } from "../models/appointment.model";
+import AppError from "../utils/AppError";
 
 export const getAllAppointments = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -16,12 +18,16 @@ export const getAllAppointments = asyncHandler(
 export const createAppointment = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const body = req.body;
-        console.log(body);
-        await Appointment.create(body);
-        res.status(201).json({
-            message: "Success",
-            data: "Created",
-        });
+        const isAvailable = await Appointment.isAvailable(body as IAppointment)
+        if (isAvailable) {
+            await Appointment.create(body);
+            res.status(201).json({
+                message: "Success",
+                data: "Created",
+            });
+        } else {
+            next(new AppError("Appointment is not available", StatusCodes.CONFLICT))
+        }
     }
 );
 
@@ -62,17 +68,31 @@ export const getAppointmentsByDay = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const day = req.params.day || new Date().toISOString();
 
-        const targetDay = day.split("T")[0]; //to sure that format will be like "2020-07-16"
-        const aps = await Appointment.find({
-            date: {
-                $gte: `${targetDay}T00:00:00.000Z`,
-                $lt: `${targetDay}T23:59:59.999Z`,
-            },
-        });
+        const aps = await Appointment.find().byDay(day)
+
+        // const aps = await Appointment.find({
+        //     date: {
+        //         $gte: `${targetDay}T00:00:00.000Z`,
+        //         $lt: `${targetDay}T23:59:59.999Z`,
+        //     },
+        // });
 
         res.status(200).json({
             message: "Success",
             data: aps,
+        });
+    }
+);
+export const updateAppointmentPrescription = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const id = req.params.id;
+        const prescription = req.body;
+
+        const app = await Appointment.findByIdAndUpdate(id, { prescription }, { runValidators: true })
+
+        res.status(StatusCodes.OK).json({
+            message: "Success",
+            data: "Updated",
         });
     }
 );

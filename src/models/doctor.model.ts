@@ -47,7 +47,7 @@ const workingHoursSchema = new mongoose.Schema<IWorkingHours>({
 
     }
 
-}, { _id: false, toJSON: { virtuals: true }, })
+}, { _id: false, })
 
 const doctorSchema = new mongoose.Schema<IDoctor>({
 
@@ -73,7 +73,7 @@ const doctorSchema = new mongoose.Schema<IDoctor>({
         required: [true, "Appointment duration can not be empty"]
     }
 
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, });
 
 doctorSchema.virtual('appointmentsCount').get(function () {
     return Math.floor(
