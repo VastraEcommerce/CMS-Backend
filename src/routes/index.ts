@@ -11,7 +11,11 @@ import patientRoute from "./../routes/patient.route";
 
 const indexRouter = Router();
 
+
+// Public
 indexRouter.use('/auth', authRouter);
+
+// Private
 indexRouter.use(protect);
 indexRouter.use('/doctor', doctorRouter);
 indexRouter.use('/employee', employeeRouter);

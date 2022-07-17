@@ -62,8 +62,6 @@ export const getAppointmentsByDay = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const day = req.params.day || new Date().toISOString();
 
-        console.log(req.params.day, "🎈🎈")
-
         const targetDay = day.split("T")[0]; //to sure that format will be like "2020-07-16"
         const aps = await Appointment.find({
             date: {

@@ -18,5 +18,7 @@ appointmentRouter
   .delete(deleteAppointment);
 
 appointmentRouter.get('/date/day/:day?', getAppointmentsByDay);
+appointmentRouter
+  .route('/:id/prescription')
 
 export default appointmentRouter;

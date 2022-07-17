@@ -10,7 +10,7 @@ interface IAppointment {
   doctor: Types.ObjectId;
   examinationId?: Types.ObjectId | null;
   invoice: IInvoice;
-  prescription: IPrescriptionRecord[];
+  prescription: Types.DocumentArray<IPrescriptionRecord>;
 }
 
 interface IAppointmentMethods {
