@@ -4,7 +4,7 @@ import {
   createMedicine,
   getMedicine,
   updateMedicine,
-  deleteMedicine
+  deleteMedicine,
 } from '../controllers/medicine.controller';
 import { admin } from '../middlewares/auth/protect.middleware';
 

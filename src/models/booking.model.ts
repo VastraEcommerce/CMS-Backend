@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, model } from "mongoose";
+import mongoose, { Schema, Types, model } from 'mongoose';
 
 export interface IBooking {
   appointment: Types.ObjectId;
@@ -11,12 +11,12 @@ const bookingSchema = new mongoose.Schema<IBooking>(
   {
     appointment: {
       type: Schema.Types.ObjectId,
-      ref: "Appointment",
+      ref: 'Appointment',
       required: true,
     },
     employee: {
       type: Schema.Types.ObjectId,
-      ref: "employee",
+      ref: 'employee',
       required: true,
     },
     price: {
@@ -33,6 +33,6 @@ const bookingSchema = new mongoose.Schema<IBooking>(
   }
 );
 
-const bookingModel = model<IBooking>("Booking", bookingSchema);
+const bookingModel = model<IBooking>('Booking', bookingSchema);
 
 export default bookingModel;

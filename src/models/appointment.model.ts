@@ -1,8 +1,8 @@
-import { HydratedDocument, Model, model, Schema, Types } from "mongoose";
-import invoiceSchema, { IInvoice } from "../schemas/invoice.schema";
+import { HydratedDocument, Model, model, Schema, Types } from 'mongoose';
+import invoiceSchema, { IInvoice } from '../schemas/invoice.schema';
 import prescriptionRecordSchema, {
   IPrescriptionRecord,
-} from "../schemas/prescriptionRecord.schema";
+} from '../schemas/prescriptionRecord.schema';
 
 interface IAppointment {
   patientId: Types.ObjectId;
@@ -26,10 +26,10 @@ interface AppointmentModel
 
 const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
   {
-    patientId: { type: Schema.Types.ObjectId, ref: "Patient", required: true },
+    patientId: { type: Schema.Types.ObjectId, ref: 'Patient', required: true },
     date: { type: Date, required: true },
-    doctor: { type: Schema.Types.ObjectId, ref: "Doctor", required: true },
-    examinationId: { type: Schema.Types.ObjectId, ref: "Appointment" },
+    doctor: { type: Schema.Types.ObjectId, ref: 'Doctor', required: true },
+    examinationId: { type: Schema.Types.ObjectId, ref: 'Appointment' },
     invoice: { type: invoiceSchema, required: true },
     prescription: [{ type: prescriptionRecordSchema, required: true }],
   },
@@ -54,7 +54,7 @@ const schema = new Schema<IAppointment, AppointmentModel, IAppointmentMethods>(
 // );
 
 const Appointment = model<IAppointment, AppointmentModel>(
-  "Appointment",
+  'Appointment',
   schema
 );
 

@@ -8,8 +8,6 @@ import {
 } from '../controllers/doctor.controller';
 import { admin } from '../middlewares/auth/protect.middleware';
 
-
-
 const doctorRouter = express.Router();
 
 doctorRouter.route('/').get(getAllDoctors).post(admin, createDoctor);

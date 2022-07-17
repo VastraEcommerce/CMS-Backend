@@ -1,45 +1,52 @@
 import mongoose, { Schema, Types } from 'mongoose';
 
-
 export interface IDisease {
-    name: string;
-    description: string;
+  name: string;
+  description: string;
 }
 
 export interface IMedicalHistory {
-    previousDiseases: IDisease[],
-    chronicDiseases: IDisease[],
-    currnetMedicines: Types.ObjectId,
-    isPregnantOrbreastfeeding: boolean;
+  previousDiseases: IDisease[];
+  chronicDiseases: IDisease[];
+  currnetMedicines: Types.ObjectId;
+  isPregnantOrbreastfeeding: boolean;
 }
 
-const diseaseSchema = new Schema<IDisease>({
+const diseaseSchema = new Schema<IDisease>(
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true,
-    }
+      type: String,
+      required: true,
+    },
+  },
+  { _id: false }
+);
 
-}, { _id: false })
-
-const medicalHistorySchema = new mongoose.Schema<IMedicalHistory>({
-
-    previousDiseases: [{
+const medicalHistorySchema = new mongoose.Schema<IMedicalHistory>(
+  {
+    previousDiseases: [
+      {
         type: diseaseSchema,
-    }],
-    chronicDiseases: [{
+      },
+    ],
+    chronicDiseases: [
+      {
         type: diseaseSchema,
-    }],
-    currnetMedicines: [{
+      },
+    ],
+    currnetMedicines: [
+      {
         type: Schema.Types.ObjectId,
-        ref: "Medicine"
-    }],
-    isPregnantOrbreastfeeding: Boolean
-
-
-}, { _id: false });
+        ref: 'Medicine',
+      },
+    ],
+    isPregnantOrbreastfeeding: Boolean,
+  },
+  { _id: false }
+);
 
 export default medicalHistorySchema;
