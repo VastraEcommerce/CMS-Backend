@@ -1,6 +1,7 @@
 import Doctor from '../models/doctor.model';
 import { NextFunction, Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
+import { ObjectId, Types } from 'mongoose';
 
 
 export const getAllDoctors = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -56,3 +57,10 @@ export const deleteDoctor = asyncHandler(async (req: Request, res: Response, nex
     });
 
 });
+
+// export const getDoctorByName: Promise<ObjectId> = asyncHandler(async (req: Request, res?: Response, next: NextFunction) => {
+//     const { name } = req.params;
+//     const doctor = await Doctor.findById(name);
+//     const doctorId = doctor?._id;
+//     return doctorId;
+// });

@@ -8,6 +8,7 @@ export interface IDoctor {
     specialzation: string;
 }
 
+
 const doctorSchema = new mongoose.Schema<IDoctor>({
 
     profile: {
@@ -22,6 +23,8 @@ const doctorSchema = new mongoose.Schema<IDoctor>({
     }
 
 });
+
+
 const DoctorModel = mongoose.model<IDoctor>('doctor', doctorSchema);
 
 export default DoctorModel;
