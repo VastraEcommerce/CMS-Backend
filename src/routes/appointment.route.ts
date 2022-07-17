@@ -6,6 +6,7 @@ import {
   updateAppointment,
   deleteAppointment,
   getAppointmentsByDay,
+  updateAppointmentPrescription
 } from '../controllers/appointment.controller';
 
 const appointmentRouter = express.Router();
@@ -18,5 +19,7 @@ appointmentRouter
   .delete(deleteAppointment);
 
 appointmentRouter.get('/date/day/:day?', getAppointmentsByDay);
+appointmentRouter
+  .post('/:id/prescription', updateAppointmentPrescription)
 
 export default appointmentRouter;
