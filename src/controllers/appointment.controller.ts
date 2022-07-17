@@ -67,10 +67,10 @@ export const getTodayAppointments = asyncHandler(async (req: Request, res: Respo
             }
         });
 
-    } else {
+    } else {  // there a promblem
         const today = new Date();
         console.log(today);
-        aps = await Appointment.find({ date: `{today}` });
+        aps = await Appointment.find({ date: `${today}` });
 
     }
     res.status(201).json({
