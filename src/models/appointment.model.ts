@@ -20,7 +20,8 @@ interface IAppointmentMethods {
 
 type AppointmentModelQuery = Query<any, HydratedDocument<IAppointment>, AppointmentQueryHelpers> & AppointmentQueryHelpers;
 interface AppointmentQueryHelpers {
-  byDay(this: AppointmentModelQuery, date: string): AppointmentModelQuery
+  byDay(this: AppointmentModelQuery, date: string): AppointmentModelQuery;
+  byStartEndDate(this: AppointmentModelQuery, Startdate: any, endDate: any): AppointmentModelQuery;
 }
 
 interface AppointmentModel
@@ -56,14 +57,15 @@ schema.query.byDay = function (date: string): AppointmentModelQuery {
       $gte: `${day}T00:00:00.000Z`,
       $lt: `${day}T23:59:59.999Z`,
     },
-  })
-}
+  });
+};
+
 
 schema.static(
   "isAvailable",
   async function isAvailable(appointment: IAppointment) {
 
-    const { date, doctor, appointmentNumber } = appointment
+    const { date, doctor, appointmentNumber } = appointment;
 
     return await Appointment.findOne({ doctor, appointmentNumber }).byDay(date as unknown as string).countDocuments() ? false : true;
   }

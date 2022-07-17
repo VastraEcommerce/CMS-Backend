@@ -7,6 +7,7 @@ import medicineRouter from './medicine.route';
 import appointmentRouter from './appointment.route';
 import bookingRoute from "./../routes/booking.route";
 import patientRoute from "./../routes/patient.route";
+import reportsRouter from "./../routes/reports.route";
 
 
 const indexRouter = Router();
@@ -23,5 +24,6 @@ indexRouter.use('/medicine', medicineRouter);
 indexRouter.use('/appointment', appointmentRouter);
 indexRouter.use("/booking", bookingRoute);
 indexRouter.use("/patient", patientRoute);
+indexRouter.use("/reports", reportsRouter);
 
 export default indexRouter;
