@@ -3,13 +3,5 @@ extends baseEmail
 block content
   p Hi #{firstName},
   p #{subject}
-  table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
-    tbody
-      tr
-        td(align='left')
-          table(role='presentation', border='0', cellpadding='0', cellspacing='0')
-            tbody
-              tr
-                td
-                  a(href=`${url}`, target='_blank') Show invoice
-  p If you need any help with booking your next appointment , please don't hesitate to contact me!
+    button
+    a(href=`${url}`) INVOICE URL
