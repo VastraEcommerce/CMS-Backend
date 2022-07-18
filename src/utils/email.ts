@@ -13,6 +13,12 @@ interface IUser {
   name: string;
 }
 
+type DailyAppointments = Array<{
+  appointmentNumber: number;
+  patientName: string;
+  date: string;
+}>;
+
 export default class Email implements IEmail {
   to: string;
   firstName: string;
@@ -47,12 +53,17 @@ export default class Email implements IEmail {
     });
   }
 
-  async send(template: 'invoice', subject: string) {
+  async send(
+    template: 'invoice' | 'newAppointment' | 'dailyAppointment',
+    subject: string,
+    dailyAppointments?: DailyAppointments
+  ) {
     // todo 1) Render HTML based on a pug template
     const html = renderFile(`${__dirname}/../views/email/${template}.pug`, {
       firstName: this.firstName,
       usr: this.url,
       subject,
+      dailyAppointments,
     });
 
     // todo 2) Define email options
@@ -70,5 +81,17 @@ export default class Email implements IEmail {
 
   async sendInvoice() {
     await this.send('invoice', 'Your invoice for appointment');
+  }
+
+  async sendNewAppointment() {
+    await this.send('newAppointment', 'New Appointment');
+  }
+
+  async sendDailyAppointment(DailyAppointments: DailyAppointments) {
+    await this.send(
+      'dailyAppointment',
+      'The Daily Appointments',
+      DailyAppointments
+    );
   }
 }

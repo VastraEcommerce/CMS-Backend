@@ -1,12 +1,12 @@
 import express from 'express';
-import * as bookingController from './../controllers/booking.controller';
-import * as authController from './../controllers/auth.controller';
+import { login } from '../controllers/auth.controller';
+import {
+  getCheckoutSession,
+  webhooksHandler,
+} from '../controllers/booking.controller';
 
 const router = express.Router();
-router.get(
-  '/create-checkout-session/:id',
-  authController.login,
-  bookingController.getCheckoutSession
-);
+router.get('/create-checkout-session/:id', login, getCheckoutSession);
+router.post('/webhooks', webhooksHandler);
 
 export default router;

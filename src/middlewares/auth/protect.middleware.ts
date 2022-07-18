@@ -3,7 +3,6 @@ import asyncHandler from 'express-async-handler';
 import { StatusCodes } from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 import { Types } from 'mongoose';
-import EmployeeModel from '../../models/employee.model';
 import AppError from '../../utils/AppError';
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY!;
