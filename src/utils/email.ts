@@ -54,7 +54,7 @@ export default class Email implements IEmail {
   }
 
   async send(
-    template: 'invoice' | 'newAppointment' | 'dailyAppointment',
+    template: 'invoice' | 'newAppointment' | 'dailyAppointments',
     subject: string,
     dailyAppointments?: DailyAppointments
   ) {

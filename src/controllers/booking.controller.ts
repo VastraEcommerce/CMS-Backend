@@ -46,3 +46,7 @@ export const getCheckoutSession = asyncHandler(
     });
   }
 );
+
+export const webhooksHandler = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {}
+);
