@@ -1,0 +1,16 @@
+extends baseEmail
+
+block content
+  h1 #{subject}
+  .table
+    table
+      thead
+        tr
+          th id
+          th Patient name
+          th Data
+      tbody
+        td #{value.appointmentNumber}
+        td #{value.PatientName}
+        td #{value.date}
+
