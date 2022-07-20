@@ -7,6 +7,14 @@ patient’s appointment & their follow-ups. It provides doctors with their daily
 schedule also allows the patient to make the
 payment through Cash, Credit Card. User can generate receipts for Insurance Company and also for the patient.
 
+## Main features
+
+- Register Appointments according to the doctor working hours and available appointment schedule
+- Enabling the patient to choose their appointments time from available options eliminating the unnecessary long waiting hours
+- Preventing the overcrowding in most of clinics due to waiting for appointments long queues
+- Enabling the patients to choose their prefered payment method
+- Enabling doctors to track their patients' medical history including _their past diseases, current diseases, chronic diseases, and the medicines they take currently_. thus doctors are able to make the best decisions regarding their patients' case
+
 ## The systems goal is to manage the following entites:
 
 - Patenits
@@ -126,3 +134,105 @@ payment through Cash, Credit Card. User can generate receipts for Insurance Comp
 - Doctors will get notified with thier daily schedule by mail
 
 - Patient will be mailed with the appointment invoice details
+
+## Request body exapmles
+
+### Create appointment request body
+
+```
+{
+    "doctor":"62d3a4a18735635fcbb44bec",
+    "patientId":"62d28f4e16737c64f882c2f0",
+    "date":"2022-07-17T10:10:18.930Z",
+    "appointmentNumber":5,
+    "invoice":{
+        "description":"Examination",
+        "price":150
+    },
+    "prescription":[]
+}
+```
+
+### Create doctor request body
+
+```
+{
+    "profile":{
+        "name":"Ahmed Hassan",
+        "email":"test@gmail.com",
+        "dateOfBirth":"2000/05/05",
+        "phone":"0102022022",
+        "gender":"male",
+        "address":"Damietta"
+    },
+    "specialzation":"ophthalmologist",
+    "workingHours":{
+        "from":{"h":6},
+        "to":{"h":6,"m":40}
+    },
+    "appointmentDuration":15
+}
+```
+
+### Create patient request body
+
+```
+{
+    "profile":{
+        "name":"Sara Ahmed",
+        "email":"patient2@gmail.com",
+        "dateOfBirth":"2000/05/05",
+        "phone":"0102332033",
+        "gender":"female",
+        "address":"Cairo, Nasr City"
+    },
+    "medicalHistory":{
+        "previousDiseases": [
+            {"name":"", "description":""},
+            {"name":"", "description":""},
+        ],
+        "chronicDiseases": [
+            {"name":"", "description":""},
+            {"name":"", "description":""},
+        ],
+        "currnetMedicines": [
+            "62d3a4a18735635fcbb44bec",
+            "62d28f4e16737c64f882c2f0",
+        ],
+        "isPregnantOrBreastfeeding": true;
+    }
+}
+```
+
+### Create medicine request body
+
+```
+{
+    "name":"Panadol",
+    "description":"Some medical description",
+    "formulation":{
+        "form":"tablets",
+        "concentrations":["12","15"]
+    }
+}
+```
+
+### Create employee request body
+
+```
+{
+    "profile":{
+        "name":"Ahemd Mahmoud",
+        "email":"test@gmail.com",
+        "dateOfBirth":"2000/05/05",
+        "phone":"0133442023",
+        "gender":"male",
+        "address":"Damietta"
+    },
+    "password":"123123123@Aa",
+    "passwordConfirm":"123123123@Aa",
+    "role":"user",
+    "department":"assistant"
+
+}
+```
