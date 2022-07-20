@@ -236,3 +236,30 @@ payment through Cash, Credit Card. User can generate receipts for Insurance Comp
 
 }
 ```
+
+### Update prescription request body
+
+```
+[
+    {
+        "medicine":"62d3a4a18735635fcasd44bec"
+        "frequency": {
+            "dose":2,
+            "timeUnit":"DAY",
+            "timeUnitCount":2
+        },
+        "duration": 3,
+        "foodRelationship": "after launch"
+    },
+    {
+        "medicine":"62d3a4a1873asd35fcbb44bec"
+        "frequency": {
+            "dose":2,
+            "timeUnit":"WEEK",
+            "timeUnitCount":2
+        },
+        "duration": 4,
+        "foodRelationship": "before any meal"
+    },
+]
+```
