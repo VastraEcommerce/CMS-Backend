@@ -1,22 +1,20 @@
-import { Router } from 'express';
-import { protect } from '../middlewares/auth/protect.middleware';
-import authRouter from './auth.route';
-import doctorRouter from './doctor.route';
-import employeeRouter from './employee.route';
-import medicineRouter from './medicine.route';
-import appointmentRouter from './appointment.route';
+import { Router } from "express";
+import { protect } from "../middlewares/auth/protect.middleware";
+import authRouter from "./auth.route";
+import doctorRouter from "./doctor.route";
+import employeeRouter from "./employee.route";
+import medicineRouter from "./medicine.route";
+import appointmentRouter from "./appointment.route";
 import bookingRoute from "./../routes/booking.route";
 import patientRoute from "./../routes/patient.route";
 
-
 const indexRouter = Router();
-
-indexRouter.use('/auth', authRouter);
+indexRouter.use("/auth", authRouter);
 indexRouter.use(protect);
-indexRouter.use('/doctor', doctorRouter);
-indexRouter.use('/employee', employeeRouter);
-indexRouter.use('/medicine', medicineRouter);
-indexRouter.use('/appointment', appointmentRouter);
+indexRouter.use("/doctor", doctorRouter);
+indexRouter.use("/employee", employeeRouter);
+indexRouter.use("/medicine", medicineRouter);
+indexRouter.use("/appointment", appointmentRouter);
 indexRouter.use("/booking", bookingRoute);
 indexRouter.use("/patient", patientRoute);
 
