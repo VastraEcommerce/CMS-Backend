@@ -8,8 +8,8 @@ export interface IDisease {
 export interface IMedicalHistory {
   previousDiseases: IDisease[];
   chronicDiseases: IDisease[];
-  currnetMedicines: Types.ObjectId;
-  isPregnantOrbreastfeeding: boolean;
+  currnetMedicines: Types.ObjectId[];
+  isPregnantOrBreastfeeding: boolean;
 }
 
 const diseaseSchema = new Schema<IDisease>(
@@ -44,7 +44,7 @@ const medicalHistorySchema = new mongoose.Schema<IMedicalHistory>(
         ref: 'Medicine',
       },
     ],
-    isPregnantOrbreastfeeding: Boolean,
+    isPregnantOrBreastfeeding: Boolean,
   },
   { _id: false }
 );
