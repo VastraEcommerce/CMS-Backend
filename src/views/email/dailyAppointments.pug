@@ -1,0 +1,18 @@
+extends baseEmail
+
+block content
+  h1 #{subject}
+  .table
+    table
+      thead
+        tr
+          th id
+          th Patient name
+          th Data
+      tbody
+      each value in appointmentList
+        tr
+          td #{value.appointmentNumber}
+          td #{value.patientName}
+          td #{value.date}
+

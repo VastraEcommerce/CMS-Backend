@@ -1,21 +1,12 @@
-import { NextFunction, Request, Response } from "express";
-import asyncHandler from "express-async-handler";
-import Patient from "../models/patient.model";
+import { NextFunction, Request, Response } from 'express';
+import asyncHandler from 'express-async-handler';
+import Patient from '../models/patient.model';
 
 export const getAllPatients = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    let patients;
-    let { name } = req.query;
-    if (name) {
-      patients = await Patient.find({
-        "profile.name": { $regex: name, $options: "$i" },
-      });
-    } else {
-      patients = await Patient.find({});
-    }
-
+    const patients = await Patient.find({});
     res.status(200).json({
-      message: "Success",
+      message: 'Success',
       data: {
         patients,
       },
@@ -28,8 +19,8 @@ export const createPatient = asyncHandler(
     console.log(body);
     await Patient.create(body);
     res.status(201).json({
-      message: "Success",
-      data: "Created",
+      message: 'Success',
+      data: 'Created',
     });
   }
 );
@@ -39,7 +30,7 @@ export const getPatient = asyncHandler(
     const id = req.params.id;
     const patient = await Patient.findById(id);
     res.status(201).json({
-      message: "Success",
+      message: 'Success',
       data: patient,
     });
   }
@@ -50,8 +41,8 @@ export const updatePatient = asyncHandler(
     const patient = req.body;
     await Patient.findByIdAndUpdate(id, patient, { runValidators: true });
     res.status(201).json({
-      message: "Success",
-      data: "Updated",
+      message: 'Success',
+      data: 'Updated',
     });
   }
 );
@@ -60,8 +51,8 @@ export const deletePatient = asyncHandler(
     const id = req.params.id;
     await Patient.findByIdAndDelete(id);
     res.status(201).json({
-      message: "Success",
-      data: "Deleted",
+      message: 'Success',
+      data: 'Deleted',
     });
   }
 );

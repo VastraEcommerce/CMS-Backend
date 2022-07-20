@@ -1,0 +1,7 @@
+extends baseEmail
+
+block content
+  p Hi #{firstName},
+  p #{subject}
+    button
+    a(href=`${url}`) INVOICE URL

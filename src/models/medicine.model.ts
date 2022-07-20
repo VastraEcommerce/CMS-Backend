@@ -1,86 +1,89 @@
 import { Model, Schema, Types, model, HydratedDocument } from 'mongoose';
 import validator from 'validator';
 
-
 enum DurgForms {
-    tincture = "tincture",
+  tincture = 'tincture',
 
-    syrup = "syrup",
+  syrup = 'syrup',
 
-    ointment = "ointment",
+  ointment = 'ointment',
 
-    liniment = "liniment",
+  liniment = 'liniment',
 
-    gel = "gel",
+  gel = 'gel',
 
-    suppositories = "suppositories",
+  suppositories = 'suppositories',
 
-    tablets = "tablets",
+  tablets = 'tablets',
 
-    ampules = "ampules",
+  ampules = 'ampules',
 
-    drops = "drops",
+  drops = 'drops',
 
-    insulinPen = "insulinPen",
+  insulinPen = 'insulinPen',
 
-    spray = "spray",
+  spray = 'spray',
 
-    solublePowderBag = "solublePowderBag",
+  solublePowderBag = 'solublePowderBag',
 
-    pills = "pills",
+  pills = 'pills',
 
-    capsules = "capsules",
+  capsules = 'capsules',
 
-    liquidMixture = "liquidMixture",
+  liquidMixture = 'liquidMixture',
 
-    suspension = "suspension",
+  suspension = 'suspension',
 
-    solution = "solution",
+  solution = 'solution',
 
-    sotfgel = "sotfgel",
+  sotfgel = 'sotfgel',
 }
 type Formualtions = {
-    form: (keyof typeof DurgForms);
-    concentrations: Array<number | string>
-}
-
+  form: keyof typeof DurgForms;
+  concentrations: Array<number | string>;
+};
 
 interface IMedicine {
-    name: string;
-    description: string;
-    formulations: Formualtions[];
-
+  name: string;
+  description: string;
+  formulations: Formualtions[];
 }
 
-
 interface IMedicineMethods {
-    fullName(): string;
+  fullName(): string;
 }
 
 interface MedicineModel extends Model<IMedicine, {}, IMedicineMethods> {
-    createWithFullName(name: string): Promise<HydratedDocument<IMedicine, IMedicineMethods>>;
+  createWithFullName(
+    name: string
+  ): Promise<HydratedDocument<IMedicine, IMedicineMethods>>;
 }
 
-const schema = new Schema<IMedicine, MedicineModel, IMedicineMethods>({
+const schema = new Schema<IMedicine, MedicineModel, IMedicineMethods>(
+  {
     name: { type: String, required: true },
     description: { type: String },
-    formulations: [{
+    formulations: [
+      {
         form: {
-            type: String,
-            enum: {
-                values: Object.values(DurgForms),
-                message: "Drug from is not valid"
-            }
+          type: String,
+          enum: {
+            values: Object.values(DurgForms),
+            message: 'Drug from is not valid',
+          },
         },
-        concentrations: [{
-            type: Schema.Types.Mixed
-        }]
-
-    }]
-
-}, {
-    timestamps: true
-});
+        concentrations: [
+          {
+            type: Schema.Types.Mixed,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 // schema.static('createWithFullName', function createWithFullName(name: string) {
 //     const [firstName, lastName] = name.split(' ');
 //     return Medicine.create({ firstName, lastName });
@@ -91,4 +94,4 @@ const schema = new Schema<IMedicine, MedicineModel, IMedicineMethods>({
 
 const Medicine = model<IMedicine, MedicineModel>('Medicine', schema);
 
-export default Medicine
+export default Medicine;
