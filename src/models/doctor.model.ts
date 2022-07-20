@@ -85,7 +85,7 @@ doctorSchema.virtual('appointmentsCount').get(function () {
   return Math.floor(
     ((this.workingHours.to.h - this.workingHours.from.h) * 60 +
       (this.workingHours.to.m - this.workingHours.from.m)) /
-      this.appointmentDuration
+    this.appointmentDuration
   );
 });
 
